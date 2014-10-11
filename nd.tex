@@ -1,0 +1,101 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{proof}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{adjustbox}
+\usepackage{fullpage}
+
+\usepackage[pdftex,
+            pdfauthor={Adam Sandberg Eriksson},
+            pdftitle={Natural deduction rules},
+            pdfsubject={Natural deduction for predicate logic},
+            pdfkeywords={natural deduction, predicate logic}]{hyperref}
+
+\newcommand{\infert}[1]{%
+  \begin{adjustbox}{valign=T}
+    #1
+  \end{adjustbox}%
+}
+
+\input{logicprelude}
+
+\def\Vhrulefill{\leavevmode\leaders\hrule height 0.7ex depth \dimexpr0.4pt-0.7ex\hfill\kern0pt}
+
+\begin{document}
+\pagestyle{empty}
+
+\textsc{\Large Natural deduction for predicate logic}
+
+\newcolumntype{M}{m{0.32\textwidth}}
+\begin{equation*}
+  \begin{array}{MMM}
+
+  \text{\textsc{And}} &
+  \infer[\andi]{\phi \land \psi}{\phi \quad \psi} &
+  \mbox{$\infer[\ande 1]{\phi}{\phi \land \psi}\quad\infer[\ande 2]{\psi}{\phi \land \psi}$} \\
+
+  \text{\textsc{Or}} &
+  \mbox{$\infer[\ori 1]{\phi \lor \psi}{\phi}\quad\infer[\ori 2]{\phi \lor \psi}{\psi}$} &
+  \infer[\ore]{\chi}{
+    \phi \lor \psi \quad
+    \boxed{\infer*{\chi}{\phi}} \quad
+    \boxed{\infer*{\chi}{\psi}}
+  } \\
+
+  \text{\textsc{Implication}} &
+  \infer[\toi]{\phi \to \psi}{\boxed{\infer*{\psi}{\phi}}} &
+  \infer[\toe]{\psi}{\phi \quad \phi \to \psi} \\
+
+  \text{\textsc{Negation}} &
+  \infer[\negi]{\neg \phi}{\quad\boxed{\infer*{\bot}{\phi}}\quad} &
+  \infer[\nege]{\bot}{\phi \quad \neg\phi} \\
+
+  \text{\textsc{Contradiction}} &
+  \textsc{\tiny no introduction} &
+  \infer[\bote]{\quad\phi\quad}{\bot} \\
+
+  \text{\textsc{Double negation}} &
+  \infer[\neg \negi]{\quad\neg \neg \phi\quad}{\phi} &
+  \infer[\neg \nege]{\phi}{\quad\neg \neg \phi\quad} \\
+
+  \text{\textsc{Equality}} &
+  \infer[\eqi]{t = t}{} &
+  \infer[\eqe]{\phi\lbrack b/x\rbrack}{a = b \quad \phi\lbrack a/x \rbrack} \\
+
+  \text{\textsc{Forall}} &
+  \infer[\ali x]{\forall x \phi}{%
+    \boxed{%
+      x_0
+      \quad
+      \begin{adjustbox}{valign=t}
+        \infer*{\phi\lbrack x_0/x \rbrack}{}
+      \end{adjustbox}
+    }
+  } &
+  \infer[\ale x]{\phi [t/x]}{\quad\forall x \phi\quad} \\
+
+  \text{\textsc{Exists}} &
+  \infer[\exi x]{\exists x \phi}{\phi [t/x]} &
+  \infer[\exe x]{\quad\quad\quad\quad\chi\quad\quad\quad\quad}{%
+    \exists x \phi
+    \quad
+    \adjustbox{valign=b}{%
+      \boxed{%
+        x_0
+        \quad
+        \adjustbox{valign=t}{%
+          \infer*{\chi}{\phi [x_0/x]}
+        }
+      }
+    }
+  } \\
+
+  \infer[\text{MT}]{\neg \phi}{\phi \to \psi \quad \neg \psi} &
+  \infer[\text{PBC}]{\quad\psi\quad}{\boxed{\infer*{\bot}{\neg\phi}}} &
+  \infer[\text{LEM}]{\quad\phi \lor \neg\phi\quad}{}
+
+\end{array}
+\end{equation*}
+
+\end{document}
