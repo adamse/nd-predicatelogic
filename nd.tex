@@ -138,7 +138,7 @@ $\model = (S, \to, L)$ a model, $s \in S$, $\phi, \psi$ CTL formulas.
   \item $\model, s \models \text{EX} \phi$ iff for some $s_1$ such that $s \to s_1$ we have $\model, s_1 \models \phi$. `In some next state.'
   \item $\model, s \models \text{AG} \phi$. For all paths starting in $s$ $\phi$ holds globally.
   \item $\model, s \models \text{EG} \phi$. There exists a path starting in $s$ where $\phi$ holds globally.
-  \item $\model, s \models \text{AG} \phi$. For all paths starting in $s$ there is some future state where $\phi$ holds.
+  \item $\model, s \models \text{AF} \phi$. For all paths starting in $s$ there is some future state where $\phi$ holds.
   \item $\model, s \models \text{EF} \phi$. For all paths beginning in $s$ there is some future state where $\phi$ holds.
   \item $\model, s \models \text{A}[\phi \text{U} \psi]$. All paths starting in $s$ satisfies $\phi \text{U} \psi$.
   \item $\model, s \models \text{E}[\phi \text{U} \psi]$. There exists some path starting in $s$ where $\phi \text{U} \psi$ holds.
