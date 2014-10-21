@@ -1,10 +1,12 @@
-\documentclass[12pt,a4paper]{article}
+\documentclass[10pt,a4paper]{article}
 
 \usepackage{proof}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage{array}
 \usepackage{adjustbox}
 \usepackage{fullpage}
+\usepackage[utf8x]{inputenc}
 
 \usepackage[pdftex,
             pdfauthor={Adam Sandberg Eriksson},
@@ -91,5 +93,56 @@
 
 \end{array}
 \end{equation*}
+
+\newpage
+
+\section*{Linear-time temporal logic}
+
+$\model = (S, \to, L)$ a model and $\pi = s_1 \to \dots$ a path in \model. $i≥1, \pi^i = s_i \to s_{i+1} \to \dots$.
+
+\renewcommand{\iff}{\ensuremath{\text{ iff }}}
+
+\newcommand{\X}{\ensuremath{\text{X}\,}}
+\newcommand{\G}{\ensuremath{\text{G}\,}}
+\newcommand{\F}{\ensuremath{\text{F}\,}}
+
+\begin{enumerate}
+  \item $\pi \models \top$
+  \item $\pi \not\models \bot$
+  \item $\pi \models p \iff p \in L(s_1)$
+  \item $\pi \models \neg \phi \iff \pi \not\models \phi$
+  \item $\pi \models \phi \land \psi \iff \pi \models \phi \land \pi \models \psi$
+  \item $\pi \models \phi \lor \psi \iff \pi \models \phi \lor \pi \models \psi$
+  \item $\pi \models \phi \to \psi$ iff $\pi \models \psi$ whenever $\pi \models \phi$
+  \item $\pi \models \X \phi$ iff $\pi^2 \models \phi$
+  \item $\pi \models \G \phi$ iff, for all $i ≥ 1, \pi^i \models \phi$
+  \item $\pi \models \F \phi$ iff there is some $i ≥ 1$ such that $\pi^i \models \phi$
+  \item $\pi \models \phi \text{ U } \psi$ iff there is some $i ≥ 1$ such that $\pi^i \models \psi$ and for all $j = 1,\dots, i-1$ we have $\pi^j \models \phi$
+  \item $\pi \models \phi \text{ W } \psi$ iff either there is some $i ≥ 1$ such that $\pi^i \models \psi$ and for all $j = 1, \dots, i-1$ we have $\pi^j \models \phi$; or for all $k ≥ 1$ we have $\pi^k \models \phi$
+  \item $\pi \models \phi \text{ R } \psi$ iff either there is some $i ≥ 1$ such that $\pi^i \models \phi$ and for all $j=1,\dots,i$ we have $\pi^j \models \psi$, or for all $k≥1$ we have $\pi^k \models \psi$
+\end{enumerate}
+
+
+\section*{Computational tree logic}
+
+$\model = (S, \to, L)$ a model, $s \in S$, $\phi, \psi$ CTL formulas.
+
+\begin{enumerate}
+  \item $\model, s \models \top$ and $\model, s \not\models \bot$
+  \item $\model, s \models p \iff p \in L(s)$
+  \item $\model, s \models \neg \phi \iff \model, s \not\models \phi$
+  \item $\model, s \models \phi \land \psi \iff \model, s \models \phi \land \model, s \models \psi$
+  \item $\model, s \models \phi \lor \psi \iff \model, s \models \phi \lor \model, s \models \psi$
+  \item $\model, s \models \phi \to \psi$ iff $\model, s \models \psi$ whenever $\model, s \models \phi$
+  \item $\model, s \models \text{AX} \phi$ iff for all $s_1$ such that $s \to s_1$ we have $\model, s_1 \models \phi$. `In every next state.'
+  \item $\model, s \models \text{EX} \phi$ iff for some $s_1$ such that $s \to s_1$ we have $\model, s_1 \models \phi$. `In some next state.'
+  \item $\model, s \models \text{AG} \phi$. For all paths starting in $s$ $\phi$ holds globally.
+  \item $\model, s \models \text{EG} \phi$. There exists a path starting in $s$ where $\phi$ holds globally.
+  \item $\model, s \models \text{AG} \phi$. For all paths starting in $s$ there is some future state where $\phi$ holds.
+  \item $\model, s \models \text{EF} \phi$. For all paths beginning in $s$ there is some future state where $\phi$ holds.
+  \item $\model, s \models \text{A}[\phi \text{U} \psi]$. All paths starting in $s$ satisfies $\phi \text{U} \psi$.
+  \item $\model, s \models \text{E}[\phi \text{U} \psi]$. There exists some path starting in $s$ where $\phi \text{U} \psi$ holds.
+\end{enumerate}
+
 
 \end{document}
